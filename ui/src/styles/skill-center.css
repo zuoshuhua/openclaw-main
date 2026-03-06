@@ -1,0 +1,683 @@
+/* ===========================================
+   Skill Center - 算力作战Skill中心样式
+   =========================================== */
+
+.skill-center-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  height: 100%;
+  min-height: calc(100vh - 200px);
+}
+
+/* ===========================================
+   左侧主区域
+   =========================================== */
+
+.skill-center-main {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 欢迎页面 */
+.skill-center-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+  padding: 48px;
+  text-align: center;
+}
+
+.skill-welcome-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.skill-welcome-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+}
+
+.skill-welcome-desc {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 400px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.skill-welcome-hint {
+  font-size: 13px;
+  color: var(--accent);
+  padding: 8px 16px;
+  background: var(--accent-subtle);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--accent-subtle);
+}
+
+/* 执行面板 */
+.skill-execution-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-execution-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-accent);
+}
+
+.skill-execution-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-strong);
+  flex: 1;
+}
+
+.skill-execution-badge {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+}
+
+.skill-execution-badge.enabled {
+  background: var(--ok-subtle);
+  color: var(--ok);
+  border: 1px solid var(--ok-muted);
+}
+
+.skill-execution-badge.disabled {
+  background: var(--danger-subtle);
+  color: var(--danger);
+  border: 1px solid var(--danger-muted);
+}
+
+.skill-execution-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.skill-info-card {
+  background: var(--bg-accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.skill-info-desc {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.skill-info-missing,
+.skill-info-reasons {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.skill-query-section {
+  background: var(--bg-accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.skill-query-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+}
+
+.skill-query-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.skill-query-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+.skill-query-input::placeholder {
+  color: var(--muted);
+}
+
+.skill-query-submit {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skill-message {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.skill-message.success {
+  background: var(--ok-subtle);
+  color: var(--ok);
+  border: 1px solid var(--ok-muted);
+}
+
+.skill-message.error {
+  background: var(--danger-subtle);
+  color: var(--danger);
+  border: 1px solid var(--danger-muted);
+}
+
+/* ===========================================
+   右侧边栏
+   =========================================== */
+
+.skill-center-sidebar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  height: fit-content;
+  max-height: calc(100vh - 200px);
+  position: sticky;
+  top: 20px;
+}
+
+.skill-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-accent);
+}
+
+.skill-sidebar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.skill-sidebar-filter {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-filter-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 13px;
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.skill-filter-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+.skill-filter-input::placeholder {
+  color: var(--muted);
+}
+
+.skill-sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* Skill 分类 */
+.skill-category {
+  margin-bottom: 16px;
+}
+
+.skill-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.skill-category-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.skill-category-count {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg-muted);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Skill 列表 */
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-list-item {
+  padding: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.skill-list-item:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-list-item.selected {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.skill-list-item.disabled {
+  opacity: 0.6;
+}
+
+.skill-list-item.disabled:hover {
+  border-color: var(--border);
+  transform: none;
+}
+
+.skill-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.skill-item-emoji {
+  font-size: 16px;
+}
+
+.skill-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-strong);
+  flex: 1;
+}
+
+.skill-item-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.skill-item-badge.disabled {
+  background: var(--danger-subtle);
+  color: var(--danger);
+}
+
+.skill-item-badge.missing {
+  background: var(--warn-subtle);
+  color: var(--warn);
+}
+
+.skill-item-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.skill-empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ===========================================
+   响应式适配
+   =========================================== */
+
+@media (max-width: 1024px) {
+  .skill-center-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .skill-center-sidebar {
+    max-height: 400px;
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .skill-center-welcome {
+    padding: 24px;
+  }
+
+  .skill-welcome-title {
+    font-size: 20px;
+  }
+
+  .skill-execution-header {
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+
+  .skill-execution-body {
+    padding: 16px;
+  }
+}
+
+/* ===========================================
+   Chat Page Skill Panel - 聊天页面Skill面板
+   =========================================== */
+
+.chat-split-container--with-skills {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 16px;
+}
+
+.chat-skill-sidebar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 250px);
+  position: sticky;
+  top: 20px;
+}
+
+.chat-skill-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-skill-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-accent);
+}
+
+.chat-skill-panel__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.chat-skill-panel__filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-skill-panel__filter-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 12px;
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.chat-skill-panel__refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.chat-skill-panel__refresh-btn:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  color: var(--accent);
+}
+
+.chat-skill-panel__refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-skill-panel__refresh-btn.refreshing {
+  animation: spin 1s linear infinite;
+}
+
+.chat-skill-panel__refresh-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.chat-skill-panel__filter-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.chat-skill-panel__filter-input::placeholder {
+  color: var(--muted);
+}
+
+.chat-skill-panel__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.chat-skill-panel__empty {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.chat-skill-category {
+  margin-bottom: 12px;
+}
+
+.chat-skill-category__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+}
+
+.chat-skill-category__header--clickable {
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-normal) var(--ease-out);
+}
+
+.chat-skill-category__header--clickable:hover {
+  background: var(--bg-hover);
+}
+
+.chat-skill-category__toggle {
+  font-size: 10px;
+  color: var(--muted);
+  width: 12px;
+  text-align: center;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.chat-skill-category__title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex: 1;
+}
+
+.chat-skill-category__count {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  margin-left: auto;
+}
+
+.chat-skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-skill-item {
+  padding: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.chat-skill-item:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+
+.chat-skill-item.disabled {
+  opacity: 0.5;
+}
+
+.chat-skill-item.disabled:hover {
+  border-color: var(--border);
+  background: var(--bg-elevated);
+}
+
+.chat-skill-item__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.chat-skill-item__emoji {
+  font-size: 14px;
+}
+
+.chat-skill-item__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-strong);
+  flex: 1;
+}
+
+.chat-skill-item__badge {
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.chat-skill-item__badge.disabled {
+  background: var(--danger-subtle);
+  color: var(--danger);
+}
+
+.chat-skill-item__badge.missing {
+  background: var(--warn-subtle);
+  color: var(--warn);
+}
+
+.chat-skill-item__desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 聊天页面响应式适配 */
+@media (max-width: 1200px) {
+  .chat-split-container--with-skills {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-skill-sidebar {
+    display: none;
+  }
+}
