@@ -1,6 +1,7 @@
-import { LitElement } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { i18n, I18nController, isSupportedLocale } from "../i18n/index.ts";
+import "./views/auth.js";
 import {
   handleChannelConfigReload as handleChannelConfigReloadInternal,
   handleChannelConfigSave as handleChannelConfigSaveInternal,
@@ -119,6 +120,21 @@ export class OpenClawApp extends LitElement {
       void i18n.setLocale(this.settings.locale);
     }
   }
+
+  // Authentication state
+  @state() isAuthenticated = false;
+  @state() currentUser: {
+    id: string;
+    email: string;
+    name: string | null;
+    agentId: string;
+    gatewayToken: string;
+    gatewayUrl: string;
+  } | null = null;
+  @state() authError: string | null = null;
+  @state() authLoading = false;
+  @state() authView: "login" | "register" | "forgot-password" = "login";
+
   @state() password = "";
   @state() tab: Tab = "chat";
   @state() onboarding = resolveOnboardingMode();
@@ -409,7 +425,13 @@ export class OpenClawApp extends LitElement {
     handleConnected(this as unknown as Parameters<typeof handleConnected>[0]);
   }
 
-  protected firstUpdated() {
+  protected async firstUpdated() {
+    // Try to restore session from localStorage
+    const { tryRestoreSession } = await import("./controllers/auth.js");
+    const restored = await tryRestoreSession(this);
+    if (!restored) {
+      this.isAuthenticated = false;
+    }
     handleFirstUpdated(this as unknown as Parameters<typeof handleFirstUpdated>[0]);
   }
 
@@ -622,6 +644,10 @@ export class OpenClawApp extends LitElement {
   }
 
   render() {
+    // Check authentication - show auth view if not authenticated
+    if (!this.isAuthenticated) {
+      return html`<auth-view .app=${this}></auth-view>`;
+    }
     return renderApp(this as unknown as AppViewState);
   }
 }

@@ -144,7 +144,13 @@ export function connectGateway(host: GatewayHost) {
   host.execApprovalQueue = [];
   host.execApprovalError = null;
 
+  // Stop previous client first to avoid connection conflicts
   const previousClient = host.client;
+  if (previousClient) {
+    previousClient.stop();
+    host.client = null;
+  }
+
   const client = new GatewayBrowserClient({
     url: host.settings.gatewayUrl,
     token: host.settings.token.trim() ? host.settings.token : undefined,
@@ -209,7 +215,6 @@ export function connectGateway(host: GatewayHost) {
     },
   });
   host.client = client;
-  previousClient?.stop();
   client.start();
 }
 

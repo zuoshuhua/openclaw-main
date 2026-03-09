@@ -974,8 +974,8 @@ function renderChatSkillPanel(props: ChatProps) {
       )
     : skills;
 
-  // 定义用户技能来源（用户自己创建的技能）
-  const userSkillSources = new Set(["agents-skills-personal", "agents-skills-project"]);
+  // 定义用户技能来源（用户自己创建的技能，包括用户workspace下的技能）
+  const userSkillSources = new Set(["agents-skills-personal", "agents-skills-project", "openclaw-workspace"]);
   
   // 分类技能：我的技能 vs 默认技能
   const mySkills = filtered.filter((skill) => userSkillSources.has(skill.source));

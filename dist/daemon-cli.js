@@ -17921,7 +17921,7 @@ function resolveGatewayAuth(params) {
 		mode = "token";
 		modeSource = "token";
 	} else {
-		mode = "token";
+		mode = "none";
 		modeSource = "default";
 	}
 	const allowTailscale = authConfig.allowTailscale ?? (params.tailscaleMode === "serve" && mode !== "password" && mode !== "trusted-proxy");

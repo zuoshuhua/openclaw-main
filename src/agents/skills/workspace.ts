@@ -361,10 +361,24 @@ function loadSkillEntries(
     dir: projectAgentsSkillsDir,
     source: "agents-skills-project",
   });
-  const workspaceSkills = loadSkills({
+  // Load skills from workspaceDir/skills/ if it exists, otherwise from workspaceDir/
+  const workspaceSkillsFromSubdir = loadSkills({
     dir: workspaceSkillsDir,
     source: "openclaw-workspace",
   });
+  const workspaceSkillsFromRoot = loadSkills({
+    dir: workspaceDir,
+    source: "openclaw-workspace",
+  });
+  // Merge workspace skills, preferring skills from subdir over root
+  const workspaceSkillsMap = new Map<string, Skill>();
+  for (const skill of workspaceSkillsFromRoot) {
+    workspaceSkillsMap.set(skill.name, skill);
+  }
+  for (const skill of workspaceSkillsFromSubdir) {
+    workspaceSkillsMap.set(skill.name, skill);
+  }
+  const workspaceSkills = Array.from(workspaceSkillsMap.values());
 
   const merged = new Map<string, Skill>();
   // Precedence: extra < bundled < managed < agents-skills-personal < agents-skills-project < workspace

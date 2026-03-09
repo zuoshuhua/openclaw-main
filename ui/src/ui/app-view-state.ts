@@ -47,6 +47,19 @@ export type AppViewState = {
   lastError: string | null;
   lastErrorCode: string | null;
   eventLog: EventLogEntry[];
+  // Authentication
+  isAuthenticated: boolean;
+  currentUser: {
+    id: string;
+    email: string;
+    name: string | null;
+    agentId: string;
+    gatewayToken: string;
+    gatewayUrl: string;
+  } | null;
+  authError: string | null;
+  authLoading: boolean;
+  authView: "login" | "register" | "forgot-password";
   assistantName: string;
   assistantAvatar: string | null;
   assistantAgentId: string | null;

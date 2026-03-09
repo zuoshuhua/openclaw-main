@@ -73,6 +73,8 @@ export function applySettings(host: SettingsHost, next: UiSettings) {
     applyResolvedTheme(host, resolveTheme(next.theme));
   }
   host.applySessionKey = host.settings.lastActiveSessionKey;
+  // Sync sessionKey to host state for skills loading
+  host.sessionKey = normalized.sessionKey;
 }
 
 export function setLastActiveSessionKey(host: SettingsHost, next: string) {

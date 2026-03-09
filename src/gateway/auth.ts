@@ -45,6 +45,8 @@ export type GatewayAuthResult = {
   rateLimited?: boolean;
   /** Milliseconds the client should wait before retrying (when rate-limited). */
   retryAfterMs?: number;
+  /** Agent ID for dynamic user authentication */
+  agentId?: string;
 };
 
 type ConnectAuth = {
@@ -270,7 +272,8 @@ export function resolveGatewayAuth(params: {
     mode = "token";
     modeSource = "token";
   } else {
-    mode = "token";
+    // Default to "none" mode for development (no authentication required)
+    mode = "none";
     modeSource = "default";
   }
 
@@ -432,19 +435,27 @@ export async function authorizeGatewayConnect(
   }
 
   if (auth.mode === "token") {
-    if (!auth.token) {
-      return { ok: false, reason: "token_missing_config" };
-    }
     if (!connectAuth?.token) {
       limiter?.recordFailure(ip, rateLimitScope);
       return { ok: false, reason: "token_missing" };
     }
-    if (!safeEqualSecret(connectAuth.token, auth.token)) {
-      limiter?.recordFailure(ip, rateLimitScope);
-      return { ok: false, reason: "token_mismatch" };
+
+    // Try static token first
+    if (auth.token && safeEqualSecret(connectAuth.token, auth.token)) {
+      limiter?.reset(ip, rateLimitScope);
+      return { ok: true, method: "token" };
     }
-    limiter?.reset(ip, rateLimitScope);
-    return { ok: true, method: "token" };
+
+    // Try dynamic user token (format: user-{uuid}:{gatewayToken})
+    const { verifyDynamicUserToken } = await import("./auth-dynamic-token.js");
+    const dynamicResult = await verifyDynamicUserToken(connectAuth.token);
+    if (dynamicResult.valid) {
+      limiter?.reset(ip, rateLimitScope);
+      return { ok: true, method: "token", agentId: dynamicResult.agentId };
+    }
+
+    limiter?.recordFailure(ip, rateLimitScope);
+    return { ok: false, reason: "token_mismatch" };
   }
 
   if (auth.mode === "password") {

@@ -21,6 +21,8 @@ export type GatewayAuthResult = {
     rateLimited?: boolean;
     /** Milliseconds the client should wait before retrying (when rate-limited). */
     retryAfterMs?: number;
+    /** Agent ID for dynamic user authentication */
+    agentId?: string;
 };
 type ConnectAuth = {
     token?: string;

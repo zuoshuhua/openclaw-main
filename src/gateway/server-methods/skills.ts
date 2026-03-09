@@ -72,7 +72,9 @@ export const skillsHandlers: GatewayRequestHandlers = {
     const agentId = agentIdRaw ? normalizeAgentId(agentIdRaw) : resolveDefaultAgentId(cfg);
     if (agentIdRaw) {
       const knownAgents = listAgentIds(cfg);
-      if (!knownAgents.includes(agentId)) {
+      // Allow user-specific agentIds (format: user-*)
+      const isUserAgent = agentIdRaw.startsWith("user-");
+      if (!knownAgents.includes(agentId) && !isUserAgent) {
         respond(
           false,
           undefined,

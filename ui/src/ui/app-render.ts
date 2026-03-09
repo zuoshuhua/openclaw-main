@@ -5,6 +5,7 @@ import { refreshChatAvatar } from "./app-chat.ts";
 import { renderUsageTab } from "./app-render-usage-tab.ts";
 import { renderChatControls, renderTab, renderThemeToggle } from "./app-render.helpers.ts";
 import type { AppViewState } from "./app-view-state.ts";
+import { handleLogout } from "./controllers/auth.ts";
 import { loadAgentFileContent, loadAgentFiles, saveAgentFile } from "./controllers/agent-files.ts";
 import { loadAgentIdentities, loadAgentIdentity } from "./controllers/agent-identity.ts";
 import { loadAgentSkills } from "./controllers/agent-skills.ts";
@@ -236,6 +237,7 @@ export function renderApp(state: AppViewState) {
           </div>
         </div>
         <div class="topbar-status">
+          ${renderUserInfo(state)}
           ${renderThemeToggle(state)}
         </div>
       </header>
@@ -1128,6 +1130,34 @@ export function renderApp(state: AppViewState) {
       </main>
       ${renderExecApprovalPrompt(state)}
       ${renderGatewayUrlConfirmation(state)}
+    </div>
+  `;
+}
+
+function renderUserInfo(state: AppViewState) {
+  const currentUser = (state as unknown as { currentUser?: { email: string; name: string | null } }).currentUser;
+  if (!currentUser) return nothing;
+
+  return html`
+    <div class="user-info">
+      <div class="user-info__avatar">
+        ${currentUser.name?.charAt(0).toUpperCase() || currentUser.email.charAt(0).toUpperCase()}
+      </div>
+      <div class="user-info__details">
+        <div class="user-info__name">${currentUser.name || currentUser.email}</div>
+        <div class="user-info__email">${currentUser.email}</div>
+      </div>
+      <button
+        class="user-info__logout"
+        @click=${() => handleLogout(state as unknown as import("./app.ts").OpenClawApp)}
+        title="退出登录"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </button>
     </div>
   `;
 }
